@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
 
 
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -28,4 +28,8 @@ fruits_to_show = my_fruit_list.loc[fruits_selected]
 st.dataframe(fruits_to_show)
 
 st.header("Fruityvice Fruit Advice!")
-st.text(fruityvice_response.json())
+# st.text(fruityvice_response.json()) # Writes data to the screen
+
+# Setting up response as dataframe
+fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+st.dataframe(fruityvice_normalized)
