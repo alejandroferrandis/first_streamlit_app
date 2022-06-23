@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
+
 
 
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
@@ -29,6 +29,10 @@ st.dataframe(fruits_to_show)
 
 st.header("Fruityvice Fruit Advice!")
 # st.text(fruityvice_response.json()) # Writes data to the screen
+
+fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
+st.write('The user entered ', fruit_choice)
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 
 # Setting up response as dataframe
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
