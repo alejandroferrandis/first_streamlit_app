@@ -7,10 +7,10 @@ import snowflake.connector
 
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
-my_data_row = my_cur.fetchone()
-st.text("Hello from Snowflake:")
-st.text(my_data_row)
+## my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()") ## test if connection works
+my_cur.execute("select * from fruit_load_list")
+## my_data_row = my_cur.fetchone() # to get one row
+my_data_rows = my_cur.fetchall()
 
 ########################################################### DATA ##########################################################
 
@@ -45,3 +45,6 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 # Setting up response as dataframe
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 st.dataframe(fruityvice_normalized)
+
+st.header("The fruit load list contains")
+st.dataframe(my_data_rows)
