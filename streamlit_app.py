@@ -48,3 +48,9 @@ st.dataframe(fruityvice_normalized)
 
 st.header("The fruit load list contains")
 st.dataframe(my_data_rows)
+
+add_my_fruit = st.multiselect("Pick some more fruits:", list(my_data_rows.index),['Avocado','Strawberries'])
+fruits_to_show_snowflake_picked = my_data_rows.loc[add_my_fruit]
+
+# Display the table on the page.
+st.dataframe(fruits_to_show_snowflake_picked)
